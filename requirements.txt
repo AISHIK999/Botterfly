@@ -1,2 +1,4 @@
-Telethon
-python-dotenv
+Telethon    # The telethon library
+python-dotenv   # For managing environment variables
+
+speedtest-cli   # For the speedtest plugin. The speedtest plugin does'nt work on python version above 3.7
