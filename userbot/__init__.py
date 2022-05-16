@@ -1,3 +1,6 @@
+# Getting the Templar in gear
+# Configs of the user provided to the bot to function properly
+
 import os
 
 from dotenv import load_dotenv
@@ -10,4 +13,4 @@ api_id = int(os.environ['API_ID'])
 api_hash = os.environ['API_HASH']
 string = os.environ['STRING_SESSION']
 
-bot = TelegramClient(StringSession(string), api_id, api_hash)
+templar = TelegramClient(StringSession(string), api_id, api_hash)
