@@ -7,5 +7,5 @@ from plugins.commands import hello
 
 
 @templar.on(events.NewMessage(**hello))
-async def sendHello(event):
+async def send_hello(event):
     await event.edit("Hello World!")
