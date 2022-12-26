@@ -2,3 +2,4 @@
 *.env
 *.idea
 private
+__pycache__

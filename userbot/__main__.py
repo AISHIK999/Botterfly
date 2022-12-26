@@ -1,9 +1,9 @@
 # Recruit the Templar
 
-from userbot import templar
-from plugins import All_PLUGINS
-
 import importlib
+
+from plugins import All_PLUGINS
+from userbot import templar
 
 # Templar will complete all the objectives assigned to it
 for plugin in All_PLUGINS:

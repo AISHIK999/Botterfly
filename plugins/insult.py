@@ -1,4 +1,5 @@
 import random
+
 from telethon import events
 
 from plugins.commands import insult

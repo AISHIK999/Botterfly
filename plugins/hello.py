@@ -2,8 +2,9 @@
 # I used this to test whether the plugin system worked :)
 
 from telethon import events
-from userbot import templar
+
 from plugins.commands import hello
+from userbot import templar
 
 
 @templar.on(events.NewMessage(**hello))

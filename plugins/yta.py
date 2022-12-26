@@ -12,7 +12,8 @@ from userbot import templar
 @templar.on(events.NewMessage(**yta))
 async def yta(event):
     try:
-        link = event.message.message.split(" ")[1] if event.message.message.split(" ")[1] else event.reply_to_message.message
+        link = event.message.message.split(" ")[1] if event.message.message.split(" ")[
+            1] else event.reply_to_message.message
     except IndexError:
         await event.edit(
             "Please provide a link to download.\nExample: `.yta https://www.youtube.com/watch?v=1234567890`")
@@ -23,7 +24,8 @@ async def yta(event):
     stdout, stderr = process.communicate()
 
     await event.edit("`Sending...`")
-    await event.client.send_file(event.chat_id, f"{link}.mp3", attributes=[DocumentAttributeAudio(duration=0, title="", performer="")])
+    await event.client.send_file(event.chat_id, f"{link}.mp3",
+                                 attributes=[DocumentAttributeAudio(duration=0, title="", performer="")])
 
     await event.edit("`Removing...`")
     remove(f"{link}.mp3")
