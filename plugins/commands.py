@@ -11,3 +11,4 @@ insult = {"pattern": f"(?i)\\{trigger}insult", "incoming": True, "outgoing": Tru
 ytv = {"pattern": f"(?i)\\{trigger}ytv", "incoming": True, "outgoing": True, "from_users" : "me"}
 id = {"pattern": f"(?i)\\{trigger}id", "incoming": True, "outgoing": True, "from_users" : "me"}
 yta = {"pattern": f"(?i)\\{trigger}yta", "incoming": True, "outgoing": True, "from_users" : "me"}
+help = {"pattern": f"(?i)\\{trigger}help", "incoming": True, "outgoing": True, "from_users" : "me"}
