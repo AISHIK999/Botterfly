@@ -16,15 +16,6 @@
    Run `python3 sessionGen.py` to get the following variable
 
     * **STRING_SESSION**
-2. Reddit oriented variables
-   Obtained from [Reddit](https://www.reddit.com/prefs/apps/)
-   
-    Scroll down and click on App Preferences and create an application to get the following variables
-   * **REDDIT_CLIENT_ID**
-   * **REDDIT_CLIENT_SECRET**
-   * **REDDIT_USERNAME**
-   * **REDDIT_PASSWORD**
-
 ```
 pip install -r requirements.txt
 ```
