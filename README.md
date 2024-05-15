@@ -3,7 +3,7 @@
 
 * Written Python and uses Telethon library
 * This is just the initial commit. More plugins would be added soon
-* If you have any suggestions, or if I made any mistakes, please connect with me on [Telegram](https://t.me/AISHIK999)
+* If you have any suggestions, please connect with me on [Telegram](https://t.me/AISHIK999)
 
 **The environments variables are:**
 1. Telegram oriented variables
@@ -38,7 +38,7 @@ python3 -m userbot
     ```
 3. Run the docker container
    ```
-    sudo docker-compose up -build
+    sudo docker-compose up --build
    ```
    This command is to be run every time any changes are made to the repo (e.g., editing plugins, .env etc)
 4. To stop the container, run the following command:
