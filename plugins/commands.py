@@ -1,10 +1,13 @@
 # All the commands that can be called and their configurations
 
-hello = {"pattern": "\.hello", "incoming": True, "outgoing": True, "from_users" : "me"}
-ping = {"pattern": "\.ping", "incoming": True, "outgoing": True, "from_users" : "me"}
-speed = {"pattern": "\.speed", "incoming": True, "outgoing": True, "from_users" : "me"}
-insult = {"pattern": "\.insult", "incoming": True, "outgoing": True, "from_users" : "me"}
-ytv = {"pattern": "\.ytv", "incoming": True, "outgoing": True, "from_users" : "me"}
-id = {"pattern": "\.id", "incoming": True, "outgoing": True, "from_users" : "me"}
-yta = {"pattern": "\.yta", "incoming": True, "outgoing": True, "from_users" : "me"}
+# A command should be processed after the trigger
+# Change the trigger as per need
+trigger = "$"
 
+hello = {"pattern": f"(?i)\\{trigger}hello", "incoming": True, "outgoing": True, "from_users" : "me"}
+ping = {"pattern": f"(?i)\\{trigger}ping", "incoming": True, "outgoing": True, "from_users" : "me"}
+speed = {"pattern": f"(?i)\\{trigger}speed", "incoming": True, "outgoing": True, "from_users" : "me"}
+insult = {"pattern": f"(?i)\\{trigger}insult", "incoming": True, "outgoing": True, "from_users" : "me"}
+ytv = {"pattern": f"(?i)\\{trigger}ytv", "incoming": True, "outgoing": True, "from_users" : "me"}
+id = {"pattern": f"(?i)\\{trigger}id", "incoming": True, "outgoing": True, "from_users" : "me"}
+yta = {"pattern": f"(?i)\\{trigger}yta", "incoming": True, "outgoing": True, "from_users" : "me"}
