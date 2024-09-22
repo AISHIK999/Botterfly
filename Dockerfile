@@ -1,11 +1,23 @@
-FROM python:alpine
+FROM python:3.9-alpine
 
-RUN mkdir /templarub
-WORKDIR /templarub
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on
+
+RUN adduser -D userbot
+
+WORKDIR /app
+
+RUN apk add --no-cache build-base
 
 COPY requirements.txt .
-RUN apk add build-base
-RUN pip3 install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-CMD ["python3","userbot"]
+
+RUN chown -R userbot:userbot /app
+
+USER userbot
+
+CMD ["python", "-m", "userbot"]

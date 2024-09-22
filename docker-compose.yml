@@ -1,9 +1,13 @@
-version: "3.3"
+version: "3.8"
 
 services:
   app:
     build: .
-    command: python3 -m userbot
-    restart: on-failure
+    command: python -m userbot
+    restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - TZ=Asia/Kolkata
