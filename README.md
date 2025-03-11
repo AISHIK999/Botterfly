@@ -26,7 +26,7 @@ python3 -m userbot
 **To host the userbot in VPS, follow the instructions below:**
 1. Clone the repository
     ```
-    git clone https://github.com/AISHIK999/Templar_Userbot.git templar
+    git clone https://github.com/AISHIK999/Botterfly.git templar
    ```
    ```
    cd templar
