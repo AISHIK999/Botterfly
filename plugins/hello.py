@@ -4,9 +4,9 @@
 from telethon import events
 
 from plugins.commands import hello
-from userbot import templar
+from userbot import botterfly
 
 
-@templar.on(events.NewMessage(**hello))
+@botterfly.on(events.NewMessage(**hello))
 async def send_hello(event):
     await event.edit("Hello World!")

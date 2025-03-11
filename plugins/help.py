@@ -1,7 +1,7 @@
 from telethon import events
 
 from plugins.commands import help, trigger
-from userbot import templar
+from userbot import botterfly
 
 tr = trigger[-1]
 help_text = f"""
@@ -24,7 +24,7 @@ Available commands:
 `{tr}ytv`: Download a youtube video in mp4 format
 """
 
-@templar.on(events.NewMessage(**help))
+@botterfly.on(events.NewMessage(**help))
 async def send_help(event):
     await event.edit("User manual has been forwarded to 'Saved Messages'")
     await event.client.send_message('me', help_text)

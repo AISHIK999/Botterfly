@@ -3,3 +3,7 @@
 *.idea
 private
 __pycache__
+pyproject.toml
+.python-version
+.ropeproject
+uv.lock

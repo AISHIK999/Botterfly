@@ -1,8 +1,7 @@
-# Templar Userbot
-## A telegram userbot for managing Telegram accounts (WIP)
+# Botterfly 🦋
+## A telegram userbot for managing Telegram accounts
 
 * Written Python and uses Telethon library
-* This is just the initial commit. More plugins would be added soon
 * If you have any suggestions, please connect with me on [Telegram](https://t.me/AISHIK999)
 
 **The environments variables are:**
@@ -31,6 +30,10 @@ python3 -m userbot
    ```
    ```
    cd templar
+   ```
+   Perform a test run
+   ```
+   python3 -m userbot
    ```
 2. Install Docker Compose
     ```

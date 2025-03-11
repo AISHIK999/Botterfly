@@ -5,11 +5,11 @@ from telethon import events
 from telethon.tl.types import DocumentAttributeAudio
 
 from plugins.commands import ytv
-from userbot import templar
+from userbot import botterfly
 
 
 # Download audio from YouTube
-@templar.on(events.NewMessage(**ytv))
+@botterfly.on(events.NewMessage(**ytv))
 async def ytv(event):
     try:
         link = event.message.message.split(" ")[1] if event.message.message.split(" ")[

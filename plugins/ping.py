@@ -3,11 +3,11 @@ from datetime import datetime
 from telethon import events
 
 from plugins.commands import ping
-from userbot import templar
+from userbot import botterfly
 
 
 # Ping test
-@templar.on(events.NewMessage(**ping))
+@botterfly.on(events.NewMessage(**ping))
 async def ping(event):
     start = datetime.now()
     await event.edit("`Pong!`")

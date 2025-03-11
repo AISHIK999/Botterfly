@@ -1,6 +1,5 @@
 """
 Import all the modules
-This has been kanged from a stackoverflow post
 https://stackoverflow.com/a/1057534
 """
 

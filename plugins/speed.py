@@ -2,11 +2,11 @@ from speedtest import Speedtest
 from telethon import events
 
 from plugins.commands import speed
-from userbot import templar
+from userbot import botterfly
 
 
 # Speedtest. Using the 'speedtest-cli' library since 'speedtest' does not work on Python 3.8 and above
-@templar.on(events.NewMessage(**speed))
+@botterfly.on(events.NewMessage(**speed))
 async def speed(event):
     await event.edit("`Wait a moment my Lord, while I run the speedtest...`")
     speed_test = Speedtest()
