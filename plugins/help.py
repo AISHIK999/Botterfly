@@ -22,9 +22,12 @@ Available commands:
 `{tr}yta`: Download a youtube video in mp3 format
 
 `{tr}ytv`: Download a youtube video in mp4 format
+
+`{tr}reddit`: Download random media from subreddits
 """
+
 
 @botterfly.on(events.NewMessage(**help))
 async def send_help(event):
     await event.edit("User manual has been forwarded to 'Saved Messages'")
-    await event.client.send_message('me', help_text)
+    await event.client.send_message("me", help_text)

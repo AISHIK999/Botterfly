@@ -15,8 +15,10 @@ By AISHIK999
 """
 
 print(banner)
-print("\n\nThe API key and API hash can be obtained from my.telegram.org\nLog in using your Telegram account and go "
-      "to API development tools\nFill in the necessary details for obtaining the values.\n\n")
+print(
+    "\n\nThe API key and API hash can be obtained from my.telegram.org\nLog in using your Telegram account and go "
+    "to API development tools\nFill in the necessary details for obtaining the values.\n\n"
+)
 time.sleep(1)
 
 API_ID = int(input("Enter your API_ID:\n "))
