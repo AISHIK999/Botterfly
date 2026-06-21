@@ -1,15 +1,16 @@
-from os import remove
 import asyncio
-import asyncpraw
-import aiohttp
-import aiofiles
-import random
 import os
+import random
+from os import remove
 from urllib.parse import urlparse
+
+import aiofiles
+import aiohttp
+import asyncpraw
 from telethon import events
+
 from plugins.commands import reddit
 from userbot import botterfly
-
 
 CLIENT_ID = os.environ["REDDIT_CLIENT_ID"]
 CLIENT_SECRET = os.environ["REDDIT_CLIENT_SECRET"]
@@ -159,60 +160,52 @@ async def get_reddit_media():
     return None, None
 
 
-async def reddit_media_with_retry(event, status_msg, attempt=1, max_attempts=10):
-    if attempt > max_attempts:
-        await status_msg.edit(
-            f"`Failed after {max_attempts} attempts. Try again later.`"
-        )
-        return
+async def reddit_media_with_retry(event, status_msg, max_attempts=10):
+    for attempt in range(1, max_attempts + 1):
+        if attempt > 1:
+            await status_msg.edit(f"`Attempt {attempt}/{max_attempts} - Fetching...`")
 
-    if attempt > 1:
-        await status_msg.edit(f"`Attempt {attempt}/{max_attempts} - Fetching...`")
+        media_url, post_title = await get_reddit_media()
 
-    media_url, post_title = await get_reddit_media()
+        if not media_url:
+            await asyncio.sleep(1)
+            continue
 
-    if not media_url:
-        await asyncio.sleep(1)
-        return await reddit_media_with_retry(
-            event, status_msg, attempt + 1, max_attempts
-        )
+        if media_url.startswith("ERROR:"):
+            await status_msg.edit(f"`{media_url}`")
+            return
 
-    if media_url.startswith("ERROR:"):
-        await status_msg.edit(f"`{media_url}`")
-        return
+        await status_msg.edit(f"`Downloading... (attempt {attempt})`")
 
-    await status_msg.edit(f"`Downloading... (attempt {attempt})`")
+        filename = get_filename(media_url)
+        success = await download_file(media_url, filename)
 
-    filename = get_filename(media_url)
-    success = await download_file(media_url, filename)
+        if not success:
+            await asyncio.sleep(1)
+            continue
 
-    if not success:
-        await asyncio.sleep(1)
-        return await reddit_media_with_retry(
-            event, status_msg, attempt + 1, max_attempts
-        )
+        await status_msg.edit("`Sending...`")
 
-    await status_msg.edit("`Sending...`")
+        try:
+            await event.client.send_file(
+                event.chat_id, filename, caption=post_title[:200]
+            )
+            await status_msg.delete()
 
-    try:
-        await event.client.send_file(event.chat_id, filename, caption=post_title[:200])
-        await status_msg.delete()
+            is_owner = event.sender_id == (await event.client.get_me()).id
+            if not is_owner:
+                await event.delete()
 
-        is_owner = event.sender_id == (await event.client.get_me()).id
-        if not is_owner:
-            await event.delete()
-
-        remove(filename)
-        return
-
-    except Exception:
-        if os.path.exists(filename):
             remove(filename)
+            return
 
-        await asyncio.sleep(1)
-        return await reddit_media_with_retry(
-            event, status_msg, attempt + 1, max_attempts
-        )
+        except Exception:
+            if os.path.exists(filename):
+                remove(filename)
+            await asyncio.sleep(1)
+            continue
+
+    await status_msg.edit(f"`Failed after {max_attempts} attempts. Try again later.`")
 
 
 @botterfly.on(events.NewMessage(**reddit))

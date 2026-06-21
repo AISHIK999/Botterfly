@@ -1,44 +1,41 @@
 from os import remove
 from subprocess import PIPE, Popen
+from uuid import uuid4
 
 from telethon import events
-from telethon.tl.types import DocumentAttributeAudio
 
 from plugins.commands import ytv
 from userbot import botterfly
 
 
-# Download audio from YouTube
+# Download video from YouTube
 @botterfly.on(events.NewMessage(**ytv))
 async def ytv(event):
-    try:
-        link = (
-            event.message.message.split(" ")[1]
-            if event.message.message.split(" ")[1]
-            else event.reply_to_message.message
-        )
-    except IndexError:
+    parts = event.message.message.split(maxsplit=1)
+    link = parts[1] if len(parts) > 1 else None
+    if not link and event.is_reply:
+        replied = await event.get_reply_message()
+        link = replied.message if replied else None
+
+    if not link:
         await event.edit(
-            "Please provide a link to download.\nExample: `.yta https://www.youtube.com/watch?v=1234567890`"
+            "Please provide a link to download.\n"
+            "Example: `.ytv https://www.youtube.com/watch?v=1234567890`"
         )
         return
 
+    filename = f"{uuid4().hex}.mp4"
+
     await event.edit("`Downloading...`")
-    process = Popen(["yt-dlp", "-o", f"{link}.mp4", link], stdout=PIPE, stderr=PIPE)
+    process = Popen(["yt-dlp", "-o", filename, link], stdout=PIPE, stderr=PIPE)
     stdout, stderr = process.communicate()
 
+    if process.returncode != 0:
+        await event.edit(f"`Download failed:\n{stderr.decode('utf-8')[:500]}`")
+        return
+
     await event.edit("`Sending...`")
-    await event.client.send_file(
-        event.chat_id,
-        f"{link}.mp4",
-        attributes=[DocumentAttributeAudio(duration=0, title="", performer="")],
-    )
+    await event.client.send_file(event.chat_id, filename)
 
-    await event.edit("`Removing...`")
-    remove(f"{link}.mp4")
+    remove(filename)
     await event.delete()
-
-    if stderr:
-        await event.client.send_message(
-            event.chat_id, f"Error: {stderr.decode('utf-8')}"
-        )
