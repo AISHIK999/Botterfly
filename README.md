@@ -15,6 +15,12 @@
    Run `python3 sessionGen.py` to get the following variable
 
     * **STRING_SESSION**
+2. Reddit oriented variables (required for the `.reddit` plugin)
+   Obtained from [Reddit apps](https://www.reddit.com/prefs/apps) — create a "script" app
+
+    * **REDDIT_CLIENT_ID**
+    * **REDDIT_CLIENT_SECRET**
+    * **REDDIT_USER_AGENT** — any descriptive string, e.g. `Botterfly`
 ```
 pip install -r requirements.txt
 ```
@@ -51,4 +57,4 @@ python3 -m userbot
    To resume, use 
    ```
     sudo docker-compose start
-   ``` 
+   ```

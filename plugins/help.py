@@ -1,6 +1,7 @@
 from telethon import events
 
 from plugins.commands import help, trigger
+from plugins.utils import safe_handler
 from userbot import botterfly
 
 tr = trigger[-1]
@@ -12,8 +13,6 @@ Available commands:
 `{tr}help`: This
 
 `{tr}id`: Returns user, message and chat ID
-
-`{tr}insult`: Returns random insult
 
 `{tr}ping`: Returns latency value
 
@@ -28,6 +27,7 @@ Available commands:
 
 
 @botterfly.on(events.NewMessage(**help))
+@safe_handler
 async def send_help(event):
     await event.edit("User manual has been forwarded to 'Saved Messages'")
     await event.client.send_message("me", help_text)

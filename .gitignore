@@ -7,3 +7,9 @@ pyproject.toml
 .python-version
 .ropeproject
 uv.lock
+*.session
+*.session-journal
+botterfly.log
+*.mp3
+*.mp4
+reddit_media_*
