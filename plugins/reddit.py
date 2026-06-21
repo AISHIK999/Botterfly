@@ -10,7 +10,10 @@ import asyncpraw
 from telethon import events
 
 from plugins.commands import reddit
+from plugins.utils import safe_handler
 from userbot import botterfly
+
+COMMAND_NAME = "reddit"
 
 CLIENT_ID = os.environ["REDDIT_CLIENT_ID"]
 CLIENT_SECRET = os.environ["REDDIT_CLIENT_SECRET"]
@@ -209,7 +212,14 @@ async def reddit_media_with_retry(event, status_msg, max_attempts=10):
 
 
 @botterfly.on(events.NewMessage(**reddit))
+@safe_handler
 async def reddit_media(event):
+    """
+    Download random media from subreddits
+
+    USAGE:
+    $reddit
+    """
     is_owner = event.sender_id == (await event.client.get_me()).id
 
     if is_owner:

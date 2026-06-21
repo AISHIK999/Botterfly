@@ -7,6 +7,8 @@ from plugins.commands import speed as speed_pattern
 from plugins.utils import safe_handler
 from userbot import botterfly
 
+COMMAND_NAME = "speed"
+
 
 def _run_speedtest(want_upload):
     speed_test = Speedtest()
@@ -15,10 +17,16 @@ def _run_speedtest(want_upload):
     return download_speed, upload_speed
 
 
-# Speedtest. Using the 'speedtest-cli' library since 'speedtest' does not work on Python 3.8 and above
+# Using the 'speedtest-cli' library since 'speedtest' does not work on Python 3.8 and above
 @botterfly.on(events.NewMessage(**speed_pattern))
 @safe_handler
 async def speed(event):
+    """
+    Returns host bandwidth
+
+    USAGE:
+    $speed (add -u to also test upload)
+    """
     await event.edit("`Wait a moment my Lord, while I run the speedtest...`")
     want_upload = "-u" in event.text
     download_speed, upload_speed = await asyncio.to_thread(_run_speedtest, want_upload)
