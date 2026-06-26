@@ -2,13 +2,22 @@ from datetime import datetime
 
 from telethon import events
 
-from plugins.commands import ping
+from plugins.commands import ping as ping_pattern
+from plugins.utils import safe_handler
 from userbot import botterfly
 
+COMMAND_NAME = "ping"
 
-# Ping test
-@botterfly.on(events.NewMessage(**ping))
+
+@botterfly.on(events.NewMessage(**ping_pattern))
+@safe_handler
 async def ping(event):
+    """
+    Returns latency value
+
+    USAGE:
+    $ping
+    """
     start = datetime.now()
     await event.edit("`Pong!`")
     end = datetime.now()
