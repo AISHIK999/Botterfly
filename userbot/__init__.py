@@ -9,13 +9,15 @@ from telethon.sessions import StringSession
 
 load_dotenv()
 
+_handlers = [logging.StreamHandler()]
+_log_file = os.environ.get("LOG_FILE", "")
+if _log_file:
+    _handlers.append(logging.FileHandler(_log_file, encoding="utf-8"))
+
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=os.environ.get("LOG_LEVEL", "INFO"),
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("botterfly.log", encoding="utf-8"),
-    ],
+    handlers=_handlers,
 )
 # Telethon's own logger is noisy at INFO, quiet it down
 logging.getLogger("telethon").setLevel(logging.WARNING)
