@@ -62,7 +62,11 @@ def get_command_registry():
                 handler = obj
                 break
 
-        doc = inspect.cleandoc(handler.__doc__) if handler and handler.__doc__ else "No description available."
+        doc = (
+            inspect.cleandoc(handler.__doc__)
+            if handler and handler.__doc__
+            else "No description available."
+        )
         registry[command_name] = doc
 
     return registry

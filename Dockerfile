@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.13-alpine
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -9,7 +9,7 @@ RUN adduser -D userbot
 
 WORKDIR /app
 
-RUN apk add --no-cache build-base
+RUN apk add --no-cache build-base ffmpeg deno
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

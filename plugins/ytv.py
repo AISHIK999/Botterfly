@@ -1,5 +1,6 @@
-from os import remove
+from shutil import rmtree
 from subprocess import PIPE, Popen
+from tempfile import mkdtemp
 from uuid import uuid4
 
 from telethon import events
@@ -34,18 +35,37 @@ async def ytv(event):
         )
         return
 
+    workdir = mkdtemp(prefix="ytv_")
     filename = f"{uuid4().hex}.mp4"
+    filepath = f"{workdir}/{filename}"
 
     await event.edit("`Downloading...`")
-    process = Popen(["yt-dlp", "-o", filename, link], stdout=PIPE, stderr=PIPE)
+    process = Popen(
+        [
+            "yt-dlp",
+            "-f",
+            "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/b",
+            "--merge-output-format",
+            "mp4",
+            "-o",
+            filepath,
+            link,
+        ],
+        stdout=PIPE,
+        stderr=PIPE,
+        cwd=workdir,
+    )
     stdout, stderr = process.communicate()
 
     if process.returncode != 0:
         await event.edit(f"`Download failed:\n{stderr.decode('utf-8')[:500]}`")
+        rmtree(workdir, ignore_errors=True)
         return
 
     await event.edit("`Sending...`")
-    await event.client.send_file(event.chat_id, filename)
+    try:
+        await event.client.send_file(event.chat_id, filepath)
+    finally:
+        rmtree(workdir, ignore_errors=True)
 
-    remove(filename)
     await event.delete()
